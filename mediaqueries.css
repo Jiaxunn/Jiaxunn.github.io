@@ -45,6 +45,14 @@
   .about-containers {
     margin-top: 0;
   }
+  #research {
+    /* padding-top: 20vh; */
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    height: 48vh; 
+    /* position: relative; */
+  }
 }
 
 @media screen and (max-width: 600px) {
