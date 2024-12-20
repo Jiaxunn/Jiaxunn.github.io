@@ -122,6 +122,11 @@ a:hover {
   max-height: 300px;
 }
 
+#profile.profile-shifted {
+  margin-top: 20vh;  /* Adjust this value to your preference */
+  transition: margin-top 0.3s ease-in-out;
+}
+
 .hamburger-icon.open span:first-child {
   transform: rotate(45deg) translate(10px, 5px);
 }
