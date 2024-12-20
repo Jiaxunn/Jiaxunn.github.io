@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="mediaqueries.css" />
   </head>
   <body>
+    <!-- Navigation -->
     <nav id="desktop-nav">
       <div class="logo">Jiaxun Liu</div>
       <div>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#Research">Research</a></li>
-          <li><a href="#Robots">Robots</a></li>
+          <li><a href="#research-header">Research</a></li>
+          <li><a href="#robots">Robots</a></li>
         </ul>
       </div>
     </nav>
@@ -27,13 +28,15 @@
           <span></span>
           <span></span>
         </div>
-        <div class="menu-links">
+        <ul class="menu-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#Research">Research</a></li>
-          <li><a href="#Robots">Robots</a></li>
-        </div>
+          <li><a href="#research-header">Research</a></li>
+          <li><a href="#robots">Robots</a></li>
+        </ul>
       </div>
     </nav>
+
+    <!-- Profile Section -->
     <section id="profile">
       <div class="section__pic-container">
         <img src="./assets/profile-pic.png" alt="Jiaxun Liu profile picture" />
@@ -41,90 +44,64 @@
       <div class="section__text">
         <p class="section__text__p1">Hello, I'm</p>
         <h1 class="title">Jiaxun Liu</h1>
-        <p class="section__text__p2">Phd student at <strong><a href="http://duke.edu/" class="section__text__p5"> Duke University</a></strong>
-          <img
-          src="./assets/duke-university-logo.png"
-          alt="Duke University"
-          class="icon"
-          onclick="location.href='https://duke.edu/'"/>
+        <p class="section__text__p2">
+          PhD student at <strong><a href="http://duke.edu/" class="section__text__p5">Duke University</a></strong>
+          <img src="./assets/duke-university-logo.png" alt="Duke University logo" class="icon" onclick="location.href='https://duke.edu/'" />
         </p>
-        <p class="section__text__p2">I'm fortunate to be advised by Professor <strong><a href="http://boyuanchen.com/" class="section__text__p3"> Boyuan Chen</a></strong> 
-          at the <strong><a href="http://generalroboticslab.com/" class="section__text__p4"> General Robotics Lab</a></strong>
-          <img
-          src="./assets/GRL_Logo.png"
-          alt="generalroboticslab"
-          class="icon"
-          onclick="location.href='http://generalroboticslab.com/'"/>
+        <p class="section__text__p2">
+          I'm fortunate to be advised by Professor <strong><a href="http://boyuanchen.com/" class="section__text__p3">Boyuan Chen</a></strong>
+          at the <strong><a href="http://generalroboticslab.com/" class="section__text__p4">General Robotics Lab</a></strong>
+          <img src="./assets/GRL_Logo.png" alt="General Robotics Lab logo" class="icon" onclick="location.href='http://generalroboticslab.com/'" />
         </p>
         <div id="socials-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="My LinkedIn profile"
-            class="icon"
-            onclick="location.href='https://www.linkedin.com/in/jiaxun-liu-5b26b6242/'"
-          />
-          <img
-            src="./assets/github.png"
-            alt="My Github profile"
-            class="icon"
-            onclick="location.href='https://github.com/'"
-          />
+          <img src="./assets/linkedin.png" alt="LinkedIn profile" class="icon" onclick="location.href='https://www.linkedin.com/in/jiaxun-liu-5b26b6242/'" />
+          <img src="./assets/github.png" alt="GitHub profile" class="icon" onclick="location.href='https://github.com/'" />
         </div>
       </div>
     </section>
-    </section>
-      <div id="research_header">
-        <p class="r_title_left" >Research</p>
-      </div>
-    <section id="research">
+
+    <!-- Research Header -->
+    <div id="research-header">
+      <p class="r_title_left">Research</p>
+    </div>
+
+    <!-- Research Sections -->
+    <section id="research-1">
       <div class="r_section__pic-container">
-        <video width="320" height="auto" autoplay loop muted src="./assets/Text2Robot.mp4">
+        <video width="320" height="auto" autoplay loop muted>
+          <source src="./assets/Text2Robot.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div class="r_section__text">
-        <p class="r_section__text__p4">
-          Text2Robot: Evolutionary Robot Design from Text Descriptions
+        <p class="r_section__text__p4">Text2Robot: Evolutionary Robot Design from Text Descriptions</p>
+        <p class="r_section__text__p5">Ryan P. Ringel*, Zachary S. Charlick*, <strong>Jiaxun Liu</strong>*, Boxi Xia, Boyuan Chen</p>
+        <p>
+          <a href="http://www.generalroboticslab.com/blogs/blog/2024-06-28-text2robot/index.html" class="r_section__text__link">Website</a> /
+          <a href="https://arxiv.org/abs/2406.19963" class="r_section__text__link">ArXiv</a> /
+          <a href="https://www.youtube.com/watch?v=Cwq7G6OUeGg&feature=youtu.be" class="r_section__text__link">Video</a>
         </p>
-        <p class="r_section__text__p5"> 
-          Ryan P. Ringel*, Zachary S. Charlick*, <a class="r_section__text__black"><strong>Jiaxun Liu</strong></a>*, Boxi Xia, Boyuan Chen
-        </p>
-        <p> 
-          <a href="http://www.generalroboticslab.com/blogs/blog/2024-06-28-text2robot/index.html" class="r_section__text__link">
-            Website
-          </a>/
-          <a href="https://arxiv.org/abs/2406.19963" class="r_section__text__link">
-            ArXiv
-          </a>/
-          <a href="https://www.youtube.com/watch?v=Cwq7G6OUeGg&feature=youtu.be" class="r_section__text__link">
-            Video
-          </a>
-          </p>
       </div>
     </section>
-    <section id="research">
+
+    <section id="research-2">
       <div class="r_section__pic-container">
-        <video width="320" height="auto" autoplay loop muted src="./assets/SonicSense.mp4">
+        <video width="320" height="auto" autoplay loop muted>
+          <source src="./assets/SonicSense.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div class="r_section__text">
-        <p class="r_section__text__p4">
-          SonicSense: Object Perception from In-Hand Acoustic Vibration
+        <p class="r_section__text__p4">SonicSense: Object Perception from In-Hand Acoustic Vibration</p>
+        <p class="r_section__text__p5"><strong>Jiaxun Liu</strong>, Boyuan Chen</p>
+        <p>
+          <a href="http://www.generalroboticslab.com/blogs/blog/2024-06-26-sonicsense/index.html" class="r_section__text__link">Website</a> /
+          <a href="https://arxiv.org/abs/2406.17932" class="r_section__text__link">ArXiv</a> /
+          <a href="https://www.youtube.com/watch?v=MvSYdLMsvx4" class="r_section__text__link">Video</a>
         </p>
-        <p class="r_section__text__p5"> 
-          <a class="r_section__text__black"><strong>Jiaxun Liu</strong></a>, Boyuan Chen
-        </p>
-        <p> 
-          <a href="http://www.generalroboticslab.com/blogs/blog/2024-06-26-sonicsense/index.html" class="r_section__text__link">
-            Website
-          </a>/
-          <a href="https://arxiv.org/abs/2406.17932" class="r_section__text__link">
-            ArXiv
-          </a>/
-          <a href="https://www.youtube.com/watch?v=MvSYdLMsvx4" class="r_section__text__link">
-            Video
-          </a>
       </div>
     </section>
-    <section id="research">
-    </section>   
+
     <script src="script.js"></script>
   </body>
 </html>
