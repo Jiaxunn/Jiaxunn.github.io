@@ -9,45 +9,37 @@
     <style>
       /* Styling for the gallery */
       .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 16px;
         padding: 20px;
         max-width: 1200px;
         margin: 0 auto;
       }
       .gallery-item {
-        flex: 1 1 calc(33.333% - 16px);
-        max-width: calc(33.333% - 16px);
-        box-sizing: border-box;
+        position: relative;
+        width: auto;
         overflow: hidden;
         border: 1px solid #ddd;
         border-radius: 10px;
       }
       .gallery-item img,
       .gallery-item video {
-        width: 100%;
-        height: auto;
         display: block;
-        object-fit: cover;
+        max-width: 100%;
+        height: auto;
       }
       h1 {
         text-align: center;
       }
-      video {
-        height: 100%;
-      }
       @media (max-width: 768px) {
-        .gallery-item {
-          flex: 1 1 calc(50% - 16px);
-          max-width: calc(50% - 16px);
+        .gallery {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
       }
       @media (max-width: 480px) {
-        .gallery-item {
-          flex: 1 1 100%;
-          max-width: 100%;
+        .gallery {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         }
       }
     </style>
