@@ -1,29 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robots</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Ensure this links to your main CSS file -->
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Robots Gallery</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Basic styling for the gallery */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .gallery-item {
+        overflow: hidden;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+      }
+      .gallery-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="robots.html" class="active">Robots</a></li>
-                <!-- Add other links as needed -->
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#research-header">Research</a></li>
+          <li><a href="robots.html" class="active">Robots</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <h1>Robots</h1>
-        <p>Welcome to the Robots section. Content coming soon.</p>
+      <h1>Robots Gallery</h1>
+      <p>Explore the collection of robots I've worked on.</p>
+      <div class="gallery">
+        <!-- Gallery items -->
+        <div class="gallery-item">
+          <img src="./assets/robots/IMG_5493.jpg" alt="Robot Image 1" />
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/robots/6DDB2C73-8831-4849-A59C-2430EA6ABEFB.PNG" alt="Robot Image 2" />
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/robots/982D88A3-E8DE-4398-8510-3E350B64B0E8.PNG" alt="Robot Image 3" />
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/robots/C6347D3B-D48E-4B47-9805-C3281BD9865A.PNG" alt="Robot Image 4" />
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/robots/FBB250DF-A02A-466B-9EEF-8A5EA84C94E8.PNG" alt="Robot Image 5" />
+        </div>
+      </div>
     </main>
     <footer>
-        <p>&copy; 2024 Jiaxun Liu. All rights reserved.</p>
+      <p>&copy; 2024 Jiaxun Liu. All rights reserved.</p>
     </footer>
-</body>
+  </body>
 </html>
