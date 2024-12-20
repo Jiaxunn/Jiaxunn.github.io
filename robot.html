@@ -29,6 +29,9 @@
         max-width: 100%;
         height: auto;
       }
+      .gallery-item video {
+        object-fit: cover;
+      }
       h1 {
         text-align: center;
       }
@@ -66,15 +69,16 @@
           <span></span>
         </div>
         <ul class="menu-links">
-          <li><a href="index.html">About</a></li>
-          <li><a href="index.html#research-header">Research</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#research-header">Research</a></li>
           <li><a href="robots.html" class="active">Robots</a></li>
         </ul>
       </div>
     </nav>
 
     <main>
-      <h1>My Robot Gallery</h1>
+      <h1>My Robots Gallery</h1>
       <p style="text-align: center;">Explore the collection of robots I've worked on.</p>
       <div class="gallery">
         <!-- Gallery items -->
@@ -82,12 +86,12 @@
           <img src="./assets/robots/IMG_5493.jpg" alt="Robot Image 1" />
         </div>
         <div class="gallery-item">
-          <video controls>
+          <video autoplay muted loop>
             <source src="./assets/robots/IMG_5505.mp4" type="video/mp4" />
           </video>
         </div>
         <div class="gallery-item">
-          <video controls>
+          <video autoplay muted loop>
             <source src="./assets/robots/sonic_sense.mp4" type="video/mp4" />
           </video>
         </div>
