@@ -4,55 +4,388 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Robots Gallery</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
     <style>
-      /* Styling for the gallery */
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      /* Navigation Styles */
+      #desktop-nav {
         display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-        padding: 20px;
+        justify-content: center;
+        padding: 1rem 2rem;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: #00539B;
+      }
+
+      #hamburger-nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        padding: 1rem;
+      }
+
+      .hamburger-menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 3px;
+      }
+
+      .hamburger-icon span {
+        width: 25px;
+        height: 3px;
+        background: #333;
+        transition: 0.3s;
+      }
+
+      .menu-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        list-style: none;
+        padding: 1rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      .menu-links.open {
+        display: block;
+      }
+
+      .menu-links a {
+        display: block;
+        padding: 0.5rem 0;
+        text-decoration: none;
+        color: #333;
+      }
+
+      /* Main Gallery Styles */
+      main {
+        margin-top: 80px;
+        padding: 2rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .gallery-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        width: 100%;
+      }
+
+      .gallery-header h1 {
+        font-size: 3rem;
+        color: #333;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .gallery-header p {
+        font-size: 1.2rem;
+        color: #666;
         max-width: 600px;
         margin: 0 auto;
       }
-      /* .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        grid-auto-rows: 200px;
-        gap: 16px;
-        padding: 40px;
-        flex-wrap: wrap;
 
-        max-width: 1200px;
-      } */
-      .gallery-item {
-        position: relative;
-        width: auto;
-        overflow: hidden;
+      /* Gallery Container - Centered */
+      .gallery-container {
+        width: 100%;
+        max-width: 1400px;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
       }
+
+      /* Dynamic Responsive Gallery - True Masonry */
+      .gallery {
+        position: relative;
+        width: 100%;
+        transition: all 0.3s ease;
+        margin: 0 auto;
+      }
+
+      .gallery-item {
+        position: absolute;
+        border-radius: 12px;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .gallery-item.positioned {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      }
+
       .gallery-item img,
       .gallery-item video {
-        display: block;
-        max-width: 100%;
+        width: 100%;
         height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+        background: #f0f0f0;
       }
-      .gallery-item video {
-        object-fit: cover;
+
+      .gallery-item img.loading {
+        height: 200px;
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
       }
-      h1 {
+
+      .gallery-item img.error {
+        height: 200px;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-size: 0.9rem;
         text-align: center;
+        position: relative;
       }
-      @media (max-width: 768px) {
-        .gallery {
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+      .gallery-item img.error::before {
+        content: "Image not available\A↻ Click to retry";
+        white-space: pre-line;
+        padding: 20px;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        background: white;
+      }
+
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      .gallery-item:hover img,
+      .gallery-item:hover video {
+        transform: scale(1.05);
+      }
+
+      /* Overlay for additional info */
+      .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        color: white;
+        padding: 2rem 1rem 1rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+      }
+
+      .overlay-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .overlay-description {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      /* Remove old responsive width rules - handled by JavaScript now */
+
+      /* Mobile navigation adjustments */
+      @media (max-width: 991px) {
+        #desktop-nav {
+          display: none;
+        }
+        
+        #hamburger-nav {
+          display: flex;
+        }
+        
+        .gallery-header h1 {
+          font-size: 2.5rem;
         }
       }
+
+              @media (max-width: 768px) {
+        main {
+          margin-top: 70px;
+          padding: 1rem;
+        }
+        
+        .gallery-header h1 {
+          font-size: 2rem;
+        }
+        
+        .gallery-header p {
+          font-size: 1rem;
+        }
+      }
+
       @media (max-width: 480px) {
-        .gallery {
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        .gallery-header h1 {
+          font-size: 1.8rem;
+        }
+      }
+
+      /* Lightbox styles */
+      .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px 20px;
+      }
+
+      .lightbox.active {
+        display: flex;
+      }
+
+      .lightbox-content {
+        position: relative;
+        border-radius: 8px;
+        max-width: 95vw;
+        max-height: 95vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+
+      .lightbox-content img,
+      .lightbox-content video {
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        transition: all 0.3s ease;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        transition: opacity 0.3s ease;
+        z-index: 10;
+      }
+
+      .lightbox-close:hover {
+        opacity: 0.7;
+      }
+
+      .lightbox-info {
+        position: absolute;
+        bottom: -60px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: white;
+        opacity: 0.8;
+      }
+
+      .lightbox-info .title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .lightbox-info .description {
+        font-size: 1rem;
+      }
+
+      /* Mobile lightbox adjustments */
+      @media (max-width: 768px) {
+        .lightbox {
+          padding: 60px 10px 10px;
+        }
+        
+        .lightbox-content {
+          max-width: 98vw;
+          max-height: 90vh;
+        }
+        
+        .lightbox-close {
+          top: -50px;
+          font-size: 1.8rem;
+        }
+        
+        .lightbox-info {
+          bottom: -80px;
+        }
+        
+        .lightbox-info .title {
+          font-size: 1rem;
+        }
+        
+        .lightbox-info .description {
+          font-size: 0.9rem;
         }
       }
     </style>
@@ -68,6 +401,7 @@
         </ul>
       </div>
     </nav>
+    
     <nav id="hamburger-nav">
       <div class="hamburger-menu">
         <div class="hamburger-icon" onclick="toggleMenu()">
@@ -78,33 +412,464 @@
         <ul class="menu-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="index.html#research-header">Research</a></li>
+          <li><a href="robots.html" class="active">Robots</a></li>
         </ul>
       </div>
     </nav>
 
     <main id="robot-gallery">
-      <h1>My Robot Gallery</h1>
-      <p style="text-align: center;">Explore the collection of robots I've worked on.</p>
-      <div class="gallery">
-        <!-- Gallery items -->
-        <div class="gallery-item">
-          <img src="./assets/robots/IMG_5493.jpg" alt="Robot Image 1" />
-        </div>
-        <div class="gallery-item">
-          <video autoplay muted loop>
-            <source src="./assets/robots/IMG_5505.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div class="gallery-item">
-          <video autoplay muted loop>
-            <source src="./assets/robots/sonic_sense.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div class="gallery-item">
-          <img src="./assets/robots/text_to_robot.jpg" alt="Robot Image 2" />
+      <div class="gallery-header">
+        <h1>My Robot Gallery</h1>
+        <p>Explore the collection of robots I've worked on ...</p>
+      </div>
+      
+      <div class="gallery-container">
+        <div class="gallery">
+          <!-- Gallery items with enhanced structure and error handling -->
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/robots/Text2Robot_ICRA.mov" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Text2Robot System</div>
+              <div class="overlay-description">Evolutionary robot design from text descriptions</div>
+            </div>
+          </div>
+          
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="./assets/robots/text_to_robot.jpg" alt="Text2Robot Design Process" 
+                 onload="handleImageLoad(this)" 
+                 onerror="handleImageError(this)"
+                 onloadstart="handleImageLoadStart(this)" />
+            <div class="gallery-overlay">
+              <div class="overlay-title">Design Process</div>
+              <div class="overlay-description">Automated robot morphology generation</div>
+            </div>
+          </div>
+          
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/robots/sonic_sense.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">SonicSense</div>
+              <div class="overlay-description">Object perception from acoustic vibration</div>
+            </div>
+          </div>
+          
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/robots/IMG_5505.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Robot Manipulation</div>
+              <div class="overlay-description">Advanced manipulation techniques</div>
+            </div>
+          </div>
+          
+          <div class="gallery-item" onclick="openLightbox(this)">
+            <img src="./assets/robots/IMG_5493.jpg" alt="Robot Hardware" 
+                 onload="handleImageLoad(this)" 
+                 onerror="handleImageError(this)"
+                 onloadstart="handleImageLoadStart(this)" />
+            <div class="gallery-overlay">
+              <div class="overlay-title">Hardware Setup</div>
+              <div class="overlay-description">Physical robot implementation</div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
-    <script src="script.js"></script>
+
+    <!-- Lightbox for full-size viewing -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+      <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <div id="lightbox-media"></div>
+        <div class="lightbox-info" id="lightbox-info">
+          <div class="title" id="lightbox-title"></div>
+          <div class="description" id="lightbox-description"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Advanced Masonry Layout Algorithm
+      class MasonryLayout {
+        constructor(container, options = {}) {
+          this.container = container;
+          this.items = [];
+          this.columnHeights = [];
+          this.columns = 1;
+          this.gap = options.gap || 20;
+          this.minItemWidth = options.minItemWidth || 250;
+          this.maxItemWidth = options.maxItemWidth || 400;
+          
+          this.init();
+        }
+        
+        init() {
+          this.calculateColumns();
+          this.setupContainer();
+          this.positionItems();
+        }
+        
+        calculateColumns() {
+          const containerWidth = this.container.clientWidth;
+          const viewportWidth = window.innerWidth;
+          
+          // Calculate optimal columns based on container width and min item width
+          let optimalColumns = Math.floor((containerWidth + this.gap) / (this.minItemWidth + this.gap));
+          
+          // Apply responsive constraints
+          if (viewportWidth < 480) {
+            optimalColumns = Math.min(optimalColumns, 1);
+          } else if (viewportWidth < 768) {
+            optimalColumns = Math.min(optimalColumns, 2);
+          } else if (viewportWidth < 1024) {
+            optimalColumns = Math.min(optimalColumns, 3);
+          } else if (viewportWidth < 1400) {
+            optimalColumns = Math.min(optimalColumns, 4);
+          } else if (viewportWidth < 1800) {
+            optimalColumns = Math.min(optimalColumns, 5);
+          } else {
+            optimalColumns = Math.min(optimalColumns, 6);
+          }
+          
+          // Ensure at least 1 column
+          this.columns = Math.max(1, optimalColumns);
+          
+          // Adjust gap for smaller screens
+          if (viewportWidth < 480) {
+            this.gap = 10;
+          } else if (viewportWidth < 768) {
+            this.gap = 15;
+          } else {
+            this.gap = 20;
+          }
+        }
+        
+        setupContainer() {
+          // Initialize column heights
+          this.columnHeights = new Array(this.columns).fill(0);
+          
+          // Calculate item width
+          const availableWidth = this.container.clientWidth - (this.gap * (this.columns - 1));
+          this.itemWidth = Math.min(this.maxItemWidth, availableWidth / this.columns);
+          
+          // Center the layout if items don't fill the full width
+          const totalLayoutWidth = (this.itemWidth * this.columns) + (this.gap * (this.columns - 1));
+          this.offsetX = (this.container.clientWidth - totalLayoutWidth) / 2;
+        }
+        
+        positionItems() {
+          this.items = Array.from(this.container.querySelectorAll('.gallery-item'));
+          
+          // Reset container height
+          this.container.style.height = '0px';
+          
+          // Position each item
+          this.items.forEach((item, index) => {
+            this.positionItem(item, index);
+          });
+          
+          // Set final container height
+          const maxHeight = Math.max(...this.columnHeights);
+          this.container.style.height = `${maxHeight}px`;
+        }
+        
+        positionItem(item, index) {
+          // Find the shortest column
+          const shortestColumnIndex = this.columnHeights.indexOf(Math.min(...this.columnHeights));
+          
+          // Calculate position
+          const x = this.offsetX + (shortestColumnIndex * (this.itemWidth + this.gap));
+          const y = this.columnHeights[shortestColumnIndex];
+          
+          // Set item dimensions and position
+          item.style.width = `${this.itemWidth}px`;
+          item.style.left = `${x}px`;
+          item.style.top = `${y}px`;
+          
+          // Get item height (need to wait for images/videos to load for accurate height)
+          const itemHeight = this.getItemHeight(item);
+          
+          // Update column height
+          this.columnHeights[shortestColumnIndex] += itemHeight + this.gap;
+          
+          // Add positioned class for animation
+          setTimeout(() => {
+            item.classList.add('positioned');
+          }, index * 50); // Stagger the animations
+        }
+        
+        getItemHeight(item) {
+          // Force layout calculation
+          item.style.height = 'auto';
+          
+          const media = item.querySelector('img, video');
+          if (media) {
+            if (media.tagName === 'IMG') {
+              if (media.complete && media.naturalWidth && media.naturalHeight) {
+                // Calculate height based on aspect ratio
+                const aspectRatio = media.naturalWidth / media.naturalHeight;
+                return this.itemWidth / aspectRatio;
+              } else {
+                // Default height for loading images
+                return 300;
+              }
+            } else if (media.tagName === 'VIDEO') {
+              if (media.videoWidth && media.videoHeight) {
+                const aspectRatio = media.videoWidth / media.videoHeight;
+                return this.itemWidth / aspectRatio;
+              } else {
+                return 300;
+              }
+            }
+          }
+          
+          // Fallback: use current height or default
+          return item.offsetHeight || 300;
+        }
+        
+        relayout() {
+          this.calculateColumns();
+          this.setupContainer();
+          this.positionItems();
+        }
+      }
+
+      // Global masonry instance
+      let masonryLayout = null;
+      
+      // Initialize masonry layout
+      function initMasonryLayout() {
+        const gallery = document.querySelector('.gallery');
+        if (gallery) {
+          masonryLayout = new MasonryLayout(gallery, {
+            gap: 20,
+            minItemWidth: 250,
+            maxItemWidth: 400
+          });
+        }
+      }
+      
+      // Dynamic layout adjustment
+      function adjustGalleryLayout() {
+        if (masonryLayout) {
+          masonryLayout.relayout();
+        }
+      }
+
+      // Adjust individual item ratios and trigger relayout
+      function adjustItemRatio(mediaElement) {
+        const item = mediaElement.closest('.gallery-item');
+        if (!item) return;
+        
+        let aspectRatio = 1;
+        
+        if (mediaElement.tagName === 'VIDEO') {
+          if (mediaElement.videoWidth && mediaElement.videoHeight) {
+            aspectRatio = mediaElement.videoWidth / mediaElement.videoHeight;
+          }
+        } else if (mediaElement.tagName === 'IMG') {
+          if (mediaElement.naturalWidth && mediaElement.naturalHeight) {
+            aspectRatio = mediaElement.naturalWidth / mediaElement.naturalHeight;
+          }
+        }
+        
+        mediaElement.style.aspectRatio = aspectRatio;
+        
+        // Trigger relayout after media loads
+        setTimeout(() => {
+          if (masonryLayout) {
+            masonryLayout.relayout();
+          }
+        }, 100);
+      }
+
+      // Media loading handlers
+      function handleImageLoadStart(img) {
+        img.classList.add('loading');
+      }
+
+      function handleImageLoad(img) {
+        img.classList.remove('loading', 'error');
+        adjustItemRatio(img);
+      }
+
+      function handleImageError(img) {
+        img.classList.remove('loading');
+        img.classList.add('error');
+        
+        // Add retry functionality
+        img.addEventListener('click', function retryLoad(e) {
+          e.stopPropagation();
+          this.classList.remove('error');
+          this.classList.add('loading');
+          
+          // Force reload by adding timestamp
+          const originalSrc = this.src.split('?')[0];
+          this.src = originalSrc + '?retry=' + Date.now();
+          
+          // Remove this listener after use
+          this.removeEventListener('click', retryLoad);
+        });
+        
+        // Trigger relayout for error state
+        setTimeout(() => {
+          if (masonryLayout) {
+            masonryLayout.relayout();
+          }
+        }, 100);
+      }
+
+      function handleMediaLoad(video) {
+        video.classList.remove('error');
+      }
+
+      function handleMediaError(video) {
+        video.classList.add('error');
+        
+        // Create fallback image for failed videos
+        const fallbackImg = document.createElement('img');
+        fallbackImg.src = 'data:image/svg+xml;base64,' + btoa(`
+          <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+            <rect width="100%" height="100%" fill="#f8f9fa"/>
+            <text x="50%" y="45%" text-anchor="middle" font-family="Arial" font-size="14" fill="#666">
+              Video not available
+            </text>
+            <text x="50%" y="60%" text-anchor="middle" font-family="Arial" font-size="12" fill="#999">
+              Click to retry
+            </text>
+          </svg>
+        `);
+        fallbackImg.alt = "Video not available";
+        fallbackImg.style.width = '100%';
+        fallbackImg.style.height = 'auto';
+        fallbackImg.style.cursor = 'pointer';
+        
+        // Add retry functionality
+        fallbackImg.addEventListener('click', function(e) {
+          e.stopPropagation();
+          video.load(); // Retry loading the video
+          video.style.display = 'block';
+          this.remove();
+        });
+        
+        video.style.display = 'none';
+        video.parentNode.appendChild(fallbackImg);
+      }
+
+      // Hamburger menu toggle
+      function toggleMenu() {
+        const menuLinks = document.querySelector('.menu-links');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        
+        menuLinks.classList.toggle('open');
+        hamburgerIcon.classList.toggle('open');
+      }
+
+      // Lightbox functionality
+      function openLightbox(element) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxMedia = document.getElementById('lightbox-media');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxDescription = document.getElementById('lightbox-description');
+        const mediaElement = element.querySelector('img, video');
+        
+        // Don't open lightbox if media has error
+        if (mediaElement && mediaElement.classList.contains('error')) {
+          return;
+        }
+        
+        // Get overlay information
+        const overlay = element.querySelector('.gallery-overlay');
+        const title = overlay ? overlay.querySelector('.overlay-title')?.textContent || '' : '';
+        const description = overlay ? overlay.querySelector('.overlay-description')?.textContent || '' : '';
+        
+        lightboxTitle.textContent = title;
+        lightboxDescription.textContent = description;
+        
+        if (mediaElement && mediaElement.tagName === 'VIDEO' && mediaElement.style.display !== 'none') {
+          const video = document.createElement('video');
+          const source = mediaElement.querySelector('source');
+          video.src = source.src;
+          video.controls = true;
+          video.autoplay = true;
+          video.muted = true;
+          
+          lightboxMedia.innerHTML = '';
+          lightboxMedia.appendChild(video);
+        } else if (mediaElement && mediaElement.tagName === 'IMG') {
+          const img = document.createElement('img');
+          img.src = mediaElement.src;
+          img.alt = mediaElement.alt;
+          
+          lightboxMedia.innerHTML = '';
+          lightboxMedia.appendChild(img);
+        }
+        
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Stop any playing videos
+        const video = lightbox.querySelector('video');
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      }
+
+      // Close lightbox with escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+        }
+      });
+
+      // Debounce function for resize events
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+
+      // Initialize and handle window events
+      window.addEventListener('load', () => {
+        // Initialize masonry layout
+        initMasonryLayout();
+        
+        // Ensure all existing images get their ratios adjusted
+        document.querySelectorAll('.gallery-item img').forEach((img, index) => {
+          if (img.complete && img.naturalWidth && img.naturalHeight) {
+            // Delay to allow for proper initialization
+            setTimeout(() => adjustItemRatio(img), index * 50);
+          }
+        });
+        
+        // Ensure all existing videos get their ratios adjusted
+        document.querySelectorAll('.gallery-item video').forEach((video, index) => {
+          if (video.readyState >= 1) { // HAVE_METADATA or higher
+            setTimeout(() => adjustItemRatio(video), index * 50);
+          }
+        });
+      });
+
+      window.addEventListener('resize', debounce(adjustGalleryLayout, 250));
+      window.addEventListener('orientationchange', debounce(adjustGalleryLayout, 300));
+    </script>
   </body>
 </html>
