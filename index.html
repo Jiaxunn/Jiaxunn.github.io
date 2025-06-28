@@ -5,8 +5,449 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jiaxun Liu</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8f9fa;
+      }
+
+      /* Navigation Styles */
+      #desktop-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        background-color: #e9ecef;
+        color: #007bff;
+      }
+
+      /* Hamburger Menu */
+      #hamburger-nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 60px;
+        background-color: white;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      .hamburger-menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        padding: 0 2rem;
+      }
+
+      .hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 24px;
+        width: 30px;
+        cursor: pointer;
+      }
+
+      .hamburger-icon span {
+        width: 100%;
+        height: 2px;
+        background-color: #333;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .hamburger-icon.open span:first-child {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger-icon.open span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger-icon.open span:last-child {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      .menu-links {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        width: 200px;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        list-style: none;
+      }
+
+      .menu-links.open {
+        max-height: 300px;
+      }
+
+      .menu-links li {
+        padding: 0;
+      }
+
+      .menu-links a {
+        display: block;
+        padding: 1rem;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s ease;
+      }
+
+      .menu-links a:hover {
+        background-color: #f8f9fa;
+      }
+
+      /* Profile Section */
+      #profile {
+        display: flex;
+        align-items: center;
+        min-height: 100vh;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 100px 2rem 2rem;
+        gap: 3rem;
+      }
+
+      .section__pic-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .section__pic-container img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .section__pic-container img:hover {
+        transform: scale(1.05);
+      }
+
+      .section__text {
+        flex: 1;
+        text-align: left;
+      }
+
+      .section__text__p1 {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+      }
+
+      .title {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #333;
+        font-weight: 700;
+      }
+
+      .section__text__p2 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #555;
+      }
+
+      .section__text__p3,
+      .section__text__p4,
+      .section__text__p5 {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .section__text__p3:hover,
+      .section__text__p4:hover,
+      .section__text__p5:hover {
+        text-decoration: underline;
+      }
+
+      .icon {
+        width: 24px;
+        height: 24px;
+        margin-left: 8px;
+        cursor: pointer;
+        vertical-align: middle;
+        transition: transform 0.3s ease;
+      }
+
+      .icon:hover {
+        transform: scale(1.1);
+      }
+
+      #socials-container {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      #socials-container .icon {
+        width: 32px;
+        height: 32px;
+        margin: 0;
+      }
+
+      /* Research Header */
+      #research-header {
+        background-color: #f8f9fa;
+        color: #333;
+        padding: 3rem 2rem;
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      .r_title_left {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+        position: relative;
+        padding-bottom: 1rem;
+      }
+
+      .r_title_left::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        height: 0.5px;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 0.5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Research Sections */
+      .research-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+      }
+
+      .research-section:nth-child(even) {
+        flex-direction: row-reverse;
+        background-color: #f8f9fa;
+      }
+
+      .r_section__pic-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .r_section__pic-container video {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+
+      .r_section__text {
+        flex: 1;
+      }
+
+      .r_section__text__p4 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #333;
+        line-height: 1.4;
+      }
+
+      .r_section__text__p5 {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .conference {
+        font-weight: 600;
+        color: #007bff;
+        background-color: #e7f3ff;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+
+      .r_section__text__link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        margin-right: 0.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .r_section__text__link:hover {
+        color: #0056b3;
+        text-decoration: underline;
+      }
+
+      /* Responsive Design */
+      @media screen and (max-width: 1024px) {
+        .title {
+          font-size: 2.5rem;
+        }
+        
+        #profile {
+          gap: 2rem;
+        }
+        
+        .research-section {
+          gap: 2rem;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        #desktop-nav {
+          display: none;
+        }
+
+        #hamburger-nav {
+          display: block;
+        }
+
+        #profile {
+          flex-direction: column;
+          text-align: center;
+          padding: 80px 1rem 1rem;
+          gap: 2rem;
+        }
+
+        .title {
+          font-size: 2rem;
+        }
+
+        .section__text__p1 {
+          font-size: 1rem;
+        }
+
+        .section__text__p2 {
+          font-size: 1rem;
+        }
+
+        .research-section {
+          flex-direction: column !important;
+          text-align: center;
+          padding: 2rem 1rem;
+          gap: 2rem;
+        }
+
+        .r_section__text__p4 {
+          font-size: 1.3rem;
+        }
+
+        .r_title_left {
+          font-size: 2rem;
+        }
+
+        #research-header {
+          padding: 2rem 1rem;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .title {
+          font-size: 1.8rem;
+        }
+
+        .section__text__p1 {
+          font-size: 0.9rem;
+        }
+
+        .section__text__p2 {
+          font-size: 0.9rem;
+        }
+
+        .r_section__text__p4 {
+          font-size: 1.2rem;
+        }
+
+        .r_title_left {
+          font-size: 1.8rem;
+        }
+
+        #profile {
+          padding: 80px 0.5rem 0.5rem;
+        }
+
+        .research-section {
+          padding: 1.5rem 0.5rem;
+        }
+
+        #research-header {
+          padding: 1.5rem 0.5rem;
+        }
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Loading animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section__text,
+      .r_section__text {
+        animation: fadeInUp 0.8s ease-out;
+      }
+    </style>
   </head>
   <body>
     <!-- Navigation -->
@@ -19,8 +460,8 @@
         </ul>
       </div>
     </nav>
+    
     <nav id="hamburger-nav">
-      <!-- <div class="logo">Jiaxun Liu</div> -->
       <div class="hamburger-menu">
         <div class="hamburger-icon" onclick="toggleMenu()">
           <span></span>
@@ -28,9 +469,9 @@
           <span></span>
         </div>
         <ul class="menu-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#research-header">Research</a></li>
-          <li><a href="robot.html">Robots</a></li>
+          <li><a href="#about" onclick="toggleMenu()">About</a></li>
+          <li><a href="#research-header" onclick="toggleMenu()">Research</a></li>
+          <li><a href="robot.html" onclick="toggleMenu()">Robots</a></li>
         </ul>
       </div>
     </nav>
@@ -66,7 +507,7 @@
     </div>
 
     <!-- Research Sections -->
-    <section id="research-1">
+    <section class="research-section">
       <div class="r_section__pic-container">
         <video width="320" height="auto" autoplay loop muted>
           <source src="./assets/Text2Robot.mp4" type="video/mp4" />
@@ -75,7 +516,7 @@
       </div>
       <div class="r_section__text">
         <p class="r_section__text__p4">Text2Robot: Evolutionary Robot Design from Text Descriptions</p>
-        <p class="r_section__text__p5">Ryan P. Ringel*, Zachary S. Charlick*, <strong>Jiaxun Liu</strong>*, Boxi Xia, Boyuan Chen <span class="conference">(ICRA2025)</span></p>
+        <p class="r_section__text__p5">Ryan P. Ringel*, Zachary S. Charlick*, <strong>Jiaxun Liu</strong>*, Boxi Xia, Boyuan Chen <span class="conference">ICRA2025</span></p>
         <p>
           <a href="http://www.generalroboticslab.com/blogs/blog/2024-06-28-text2robot/index.html" class="r_section__text__link">Website</a> /
           <a href="https://arxiv.org/abs/2406.19963" class="r_section__text__link">ArXiv</a> /
@@ -84,7 +525,7 @@
       </div>
     </section>
 
-    <section id="research-2">
+    <section class="research-section">
       <div class="r_section__pic-container">
         <video width="320" height="auto" autoplay loop muted>
           <source src="./assets/SonicSense.mp4" type="video/mp4" />
@@ -93,7 +534,7 @@
       </div>
       <div class="r_section__text">
         <p class="r_section__text__p4">SonicSense: Object Perception from In-Hand Acoustic Vibration</p>
-        <p class="r_section__text__p5"><strong>Jiaxun Liu</strong>, Boyuan Chen <span class="conference">(CoRL2024)</span></p>
+        <p class="r_section__text__p5"><strong>Jiaxun Liu</strong>, Boyuan Chen <span class="conference">CoRL2024</span></p>
         <p>
           <a href="http://www.generalroboticslab.com/blogs/blog/2024-06-26-sonicsense/index.html" class="r_section__text__link">Website</a> /
           <a href="https://arxiv.org/abs/2406.17932" class="r_section__text__link">ArXiv</a> /
@@ -102,6 +543,58 @@
       </div>
     </section>
 
-    <script src="script.js"></script>
+    <script>
+      function toggleMenu() {
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const menuLinks = document.querySelector('.menu-links');
+        
+        hamburgerIcon.classList.toggle('open');
+        menuLinks.classList.toggle('open');
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const menuLinks = document.querySelector('.menu-links');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        
+        if (!hamburgerMenu.contains(event.target) && menuLinks.classList.contains('open')) {
+          hamburgerIcon.classList.remove('open');
+          menuLinks.classList.remove('open');
+        }
+      });
+
+      // Smooth scroll for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Add scroll effect to navigation
+      window.addEventListener('scroll', function() {
+        const nav = document.getElementById('desktop-nav');
+        const hamburgerNav = document.getElementById('hamburger-nav');
+        
+        if (window.scrollY > 50) {
+          nav.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+          nav.style.backdropFilter = 'blur(10px)';
+          hamburgerNav.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+          hamburgerNav.style.backdropFilter = 'blur(10px)';
+        } else {
+          nav.style.backgroundColor = 'white';
+          nav.style.backdropFilter = 'none';
+          hamburgerNav.style.backgroundColor = 'white';
+          hamburgerNav.style.backdropFilter = 'none';
+        }
+      });
+    </script>
   </body>
 </html>
