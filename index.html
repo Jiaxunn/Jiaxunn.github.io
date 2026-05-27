@@ -187,9 +187,9 @@
       .photo-card {
         position: relative;
         z-index: 3;
-        width: 100%;
-        max-width: 320px;
-        aspect-ratio: 4 / 5;
+        width: 320px;
+        height: 400px;
+        max-width: 100%;
         margin: 0 auto;
         padding: 18px 18px 22px;
         cursor: pointer;
@@ -233,9 +233,8 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 100%;
-        max-width: 320px;
-        aspect-ratio: 4 / 5;
+        width: 320px;
+        height: 400px;
         background-color: #1d2733;
         background-image: url('./assets/duke_chapel.png');
         background-size: cover;
@@ -667,6 +666,18 @@
           margin-left: 0;
           margin-top: 0.5rem;
         }
+
+        /* Keep the profile photo, chapel back cards, and fly-outs proportional on phones */
+        .photo-card,
+        .section__pic-container::before,
+        .section__pic-container::after {
+          width: 260px;
+          height: 325px;
+        }
+
+        .fly-out.cat { height: 146px; }
+        .fly-out.basketball { height: 98px; }
+        .fly-out.music { height: 122px; }
       }
 
       @media screen and (max-width: 480px) {
@@ -701,6 +712,18 @@
         #research-header {
           padding: 1.5rem 0.5rem;
         }
+
+        /* Shrink one more step for very narrow screens */
+        .photo-card,
+        .section__pic-container::before,
+        .section__pic-container::after {
+          width: 220px;
+          height: 275px;
+        }
+
+        .fly-out.cat { height: 124px; }
+        .fly-out.basketball { height: 83px; }
+        .fly-out.music { height: 103px; }
       }
 
       /* Smooth scrolling */
