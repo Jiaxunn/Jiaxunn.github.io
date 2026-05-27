@@ -13,7 +13,10 @@
 
       body {
         font-family: "Poppins", sans-serif;
-        background-color: #f8f9fa;
+        background-color: #ffffff;
+        background-image: radial-gradient(rgba(60, 70, 85, 0.06) 1px, transparent 1px);
+        background-size: 24px 24px;
+        background-attachment: fixed;
       }
 
       /* Navigation Styles */
@@ -39,6 +42,7 @@
         text-decoration: none;
         color: #333;
         font-weight: 500;
+        font-size: 1.3rem;
         transition: color 0.3s ease;
       }
 
@@ -99,6 +103,7 @@
         padding: 0.5rem 0;
         text-decoration: none;
         color: #333;
+        font-size: 1.3rem;
       }
 
       /* Main Gallery Styles */
@@ -607,11 +612,12 @@
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="index.html#research-header">Research</a></li>
-          <li><a href="robots.html" class="active">Robots</a></li>
+          <li><a href="robot.html" class="active">Robots</a></li>
+          <li><a href="photograph.html">Photography</a></li>
         </ul>
       </div>
     </nav>
-    
+
     <nav id="hamburger-nav">
       <div class="hamburger-menu">
         <div class="hamburger-icon" onclick="toggleMenu()">
@@ -622,7 +628,8 @@
         <ul class="menu-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="index.html#research-header">Research</a></li>
-          <li><a href="robots.html" class="active">Robots</a></li>
+          <li><a href="robot.html" class="active">Robots</a></li>
+          <li><a href="photograph.html">Photography</a></li>
         </ul>
       </div>
     </nav>
@@ -636,7 +643,45 @@
       <div class="gallery-container">
         <div class="gallery">
           <!-- Gallery items with enhanced structure and error handling -->
-          <div class="gallery-item" onclick="openLightbox(this, 0)">
+          <div class="gallery-item wide" onclick="openLightbox(this, 0)">
+            <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/robots/Argus/object_tracking.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Argus: Object Tracking</div>
+              <div class="overlay-description">Omnidirectional perception with extreme dynamic symmetry in object tracking.</div>
+            </div>
+          </div>
+
+          <div class="gallery-item wide" onclick="openLightbox(this, 1)">
+            <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/robots/Argus/object_pushing.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Argus: Object Pushing</div>
+              <div class="overlay-description">Whole-body manipulation of objects via omnidirectional perception and extreme dynamic symmetry.</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" onclick="openLightbox(this, 2)">
+            <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/robots/Argus/breath.MP4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Argus: Breathing</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" onclick="openLightbox(this, 3)">
+            <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/robots/Argus/flat_plane.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Argus: Rolling locomotion over a flat plane</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" onclick="openLightbox(this, 4)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/Text2Robot_ICRA.mov" type="video/mp4" />
             </video>
@@ -644,10 +689,10 @@
               <div class="overlay-title">Text2Robot at ICRA2025</div>
             </div>
           </div>
-          
-          <div class="gallery-item" onclick="openLightbox(this, 1)">
-            <img src="./assets/robots/text_to_robot.jpg" alt="Text2Robot Design Process" 
-                 onload="handleImageLoad(this)" 
+
+          <div class="gallery-item" onclick="openLightbox(this, 5)">
+            <img src="./assets/robots/text_to_robot.jpg" alt="Text2Robot Design Process"
+                 onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
                  onloadstart="handleImageLoadStart(this)" />
             <div class="gallery-overlay">
@@ -655,8 +700,8 @@
               <div class="overlay-description">Evolutionary robot design from text description.</div>
             </div>
           </div>
-          
-          <div class="gallery-item" onclick="openLightbox(this, 2)">
+
+          <div class="gallery-item wide" onclick="openLightbox(this, 6)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/sonic_sense.mp4" type="video/mp4" />
             </video>
@@ -665,8 +710,8 @@
               <div class="overlay-description">Object perception from In-hand acoustic vibration</div>
             </div>
           </div>
-          
-          <div class="gallery-item" onclick="openLightbox(this, 3)">
+
+          <div class="gallery-item" onclick="openLightbox(this, 7)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/IMG_5505.mp4" type="video/mp4" />
             </video>
@@ -674,10 +719,10 @@
               <div class="overlay-title">"Thing" Robot</div>
             </div>
           </div>
-          
-          <div class="gallery-item" onclick="openLightbox(this, 4)">
-            <img src="./assets/robots/IMG_5493.jpg" alt="Robot Hardware" 
-                 onload="handleImageLoad(this)" 
+
+          <div class="gallery-item" onclick="openLightbox(this, 8)">
+            <img src="./assets/robots/IMG_5493.jpg" alt="Robot Hardware"
+                 onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
                  onloadstart="handleImageLoadStart(this)" />
             <div class="gallery-overlay">
@@ -802,41 +847,57 @@
         }
         
         positionItem(item, index) {
-          // Find the shortest column
-          const shortestColumnIndex = this.columnHeights.indexOf(Math.min(...this.columnHeights));
-          
-          // Calculate position
-          const x = this.offsetX + (shortestColumnIndex * (this.itemWidth + this.gap));
-          const y = this.columnHeights[shortestColumnIndex];
-          
-          // Set item dimensions and position
-          item.style.width = `${this.itemWidth}px`;
+          // Wide items occupy 2 column slots and render 2× the standard width (fills the full 2-col span including the gap)
+          const isWide = item.classList.contains('wide') && this.columns >= 2;
+          const colsOccupied = isWide ? 2 : 1;
+          const widthMultiplier = isWide ? 2 : 1;
+
+          // Find the leftmost adjacent column group with smallest max height
+          let chosenColumn = 0;
+          let startY = Infinity;
+          for (let i = 0; i <= this.columns - colsOccupied; i++) {
+            const maxH = Math.max(...this.columnHeights.slice(i, i + colsOccupied));
+            if (maxH < startY) {
+              startY = maxH;
+              chosenColumn = i;
+            }
+          }
+
+          // 2× width + the inter-column gap so it spans the full 2-column footprint cleanly
+          const itemActualWidth = (this.itemWidth * widthMultiplier) + (isWide ? this.gap : 0);
+          const x = this.offsetX + (chosenColumn * (this.itemWidth + this.gap));
+          const y = startY;
+
+          item.style.width = `${itemActualWidth}px`;
           item.style.left = `${x}px`;
           item.style.top = `${y}px`;
-          
-          // Get item height (need to wait for images/videos to load for accurate height)
+
           const itemHeight = this.getItemHeight(item);
-          
-          // Update column height
-          this.columnHeights[shortestColumnIndex] += itemHeight + this.gap;
-          
-          // Add positioned class for animation
+
+          // Mark every occupied column slot so subsequent items can't collide
+          for (let i = chosenColumn; i < chosenColumn + colsOccupied; i++) {
+            this.columnHeights[i] = y + itemHeight + this.gap;
+          }
+
           setTimeout(() => {
             item.classList.add('positioned');
           }, index * 50); // Stagger the animations
         }
-        
+
         getItemHeight(item) {
           // Force layout calculation
           item.style.height = 'auto';
-          
+
+          const isWide = item.classList.contains('wide') && this.columns >= 2;
+          const renderWidth = (this.itemWidth * (isWide ? 2 : 1)) + (isWide ? this.gap : 0);
+
           const media = item.querySelector('img, video');
           if (media) {
             if (media.tagName === 'IMG') {
               if (media.complete && media.naturalWidth && media.naturalHeight) {
                 // Calculate height based on aspect ratio
                 const aspectRatio = media.naturalWidth / media.naturalHeight;
-                return this.itemWidth / aspectRatio;
+                return renderWidth / aspectRatio;
               } else {
                 // Default height for loading images
                 return 300;
@@ -844,13 +905,13 @@
             } else if (media.tagName === 'VIDEO') {
               if (media.videoWidth && media.videoHeight) {
                 const aspectRatio = media.videoWidth / media.videoHeight;
-                return this.itemWidth / aspectRatio;
+                return renderWidth / aspectRatio;
               } else {
                 return 300;
               }
             }
           }
-          
+
           // Fallback: use current height or default
           return item.offsetHeight || 300;
         }
