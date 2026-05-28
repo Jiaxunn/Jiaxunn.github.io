@@ -411,7 +411,9 @@
 
       #socials-container {
         display: flex;
-        gap: 1rem;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.25rem;
         margin-top: 2rem;
       }
 
@@ -419,6 +421,36 @@
         width: 32px;
         height: 32px;
         margin: 0;
+      }
+
+      /* Email icon: native 820x512 (landscape envelope) — keep aspect ratio, scale to match row height */
+      #socials-container .icon.email {
+        width: auto;
+        height: 32px;
+      }
+
+      /* Toast that appears when the email icon is clicked */
+      #copy-toast {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        padding: 0.7rem 1.3rem;
+        background: var(--color-accent-strong);
+        color: #ffffff;
+        border-radius: 999px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        box-shadow: 0 8px 24px rgba(13, 38, 76, 0.28);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        z-index: 2000;
+      }
+
+      #copy-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
       }
 
       /* Scroll reveal animation */
@@ -803,11 +835,15 @@
           <img src="./assets/GRL_Logo.png" alt="General Robotics Lab logo" class="icon" onclick="location.href='http://generalroboticslab.com/'" />
         </p>
         <p class="section__text__p2">
-          I'm interested in robot embodiment design, exploring how a robot's morphology can sense and adapt based on task demands to enrich versatility, facilitate robot learning, and enhance task performance. I like to think outside the box and seek unconventional solutions with a full-stack mindset. 
+          I'm interested in robot <strong>embodiment</strong> design, exploring how a robot's morphology can <strong>sense</strong> and <strong>adapt</strong> based on task demands to enrich versatility, facilitate robot learning, and enhance task performance. I like to think outside the box and seek unconventional solutions with a full-stack mindset.
+        </p>
+        <p class="section__text__p2">
+          Outside research, I’m interested in design at the intersection of art, fashion, and robotics. If you’re interested in incorporating robots into product design, interactive art, or film, I’d be excited to contribute.
         </p>
         <div id="socials-container">
           <img src="./assets/google-scholar-icon_cutout.png" alt="Google scholar" class="icon" onclick="location.href='https://scholar.google.com/citations?user=T7Eoo6cAAAAJ&hl=en'" />
           <img src="./assets/linkedin.png" alt="LinkedIn profile" class="icon" onclick="location.href='https://www.linkedin.com/in/jiaxun-liu-5b26b6242/'" />
+          <img src="./assets/email_symbol_cutout.png" alt="Email" title="Copy email address" class="icon email" onclick="copyEmail()" />
           <!-- <img src="./assets/github.png" alt="GitHub profile" class="icon" onclick="location.href='https://github.com/'" /> -->
         </div>
       </div>
@@ -881,11 +917,45 @@
       </div>
     </section>
 
+    <div id="copy-toast" role="status" aria-live="polite">Email copied</div>
+
     <script>
+      const CONTACT_EMAIL = 'jiaxun.liu@duke.edu';
+      let copyToastTimer = null;
+
+      function showCopyToast(message) {
+        const toast = document.getElementById('copy-toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add('show');
+        if (copyToastTimer) clearTimeout(copyToastTimer);
+        copyToastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+      }
+
+      async function copyEmail() {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(CONTACT_EMAIL);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = CONTACT_EMAIL;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          }
+          showCopyToast('Email copied: ' + CONTACT_EMAIL);
+        } catch (err) {
+          showCopyToast('Could not copy — ' + CONTACT_EMAIL);
+        }
+      }
+
       function toggleMenu() {
         const hamburgerIcon = document.querySelector('.hamburger-icon');
         const menuLinks = document.querySelector('.menu-links');
-        
+
         hamburgerIcon.classList.toggle('open');
         menuLinks.classList.toggle('open');
       }
