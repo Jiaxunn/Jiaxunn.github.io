@@ -615,6 +615,19 @@
         padding: 0.2rem 0.5rem;
         border-radius: 4px;
         font-size: 0.9rem;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+      }
+
+      .press-release a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 600;
+        transition: text-decoration 0.2s ease;
+      }
+
+      .press-release a:hover {
+        text-decoration: underline;
       }
 
       /* Extra breathing room above the press/award row so it sits visually separated from Website/Paper/Video */
@@ -877,7 +890,7 @@
           <a href="https://www.youtube.com/watch?v=Nd-I4YNQEuY" class="r_section__text__link">Video</a>
         </p>
         <p>
-          <a href="https://apnews.com/article/robot-duke-argus-6ba9651ba6553ebc4405ffc07a26afed" class="r_section__text__link"><span class="press-release">Press: AP News</span></a>
+          <span class="press-release">Press: <a href="https://apnews.com/article/robot-duke-argus-6ba9651ba6553ebc4405ffc07a26afed">AP News</a>, <a href="https://abcnews.com/US/wireStory/introducing-argus-robot-20-legs-eyes-built-move-133359106">ABC News</a>, <a href="https://spectrum.ieee.org/video-friday-rabona-soccer">IEEE Spectrum</a>, <a href="https://www.washingtonpost.com/business/2026/05/27/robot-duke-argus/7fa95608-59f9-11f1-8a9d-afb1148204e1_story.html">Washington Post</a>, <a href="https://www.popsci.com/technology/unstoppable-blob-robot/">Popular Science</a>, <a href="https://fortune.com/2026/05/28/duke-argus-robot-20-legs-nightmare-omnidirectional/">Fortune</a></span>
         </p>
       </div>
     </section>
