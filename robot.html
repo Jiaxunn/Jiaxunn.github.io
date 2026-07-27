@@ -184,6 +184,27 @@
         background: #f0f0f0;
       }
 
+      /* Dark card variant for footage shot on a black background */
+      .gallery-item.dark {
+        background: #000;
+      }
+
+      .gallery-item.dark img,
+      .gallery-item.dark video {
+        background: #000;
+      }
+
+      /* Zoomed-in footage: media is scaled up and cropped by the card's overflow */
+      .gallery-item.zoom img,
+      .gallery-item.zoom video {
+        transform: scale(1.3);
+      }
+
+      .gallery-item.zoom:hover img,
+      .gallery-item.zoom:hover video {
+        transform: scale(1.365); /* keeps the 1.05x hover pop on top of the base zoom */
+      }
+
       .gallery-item img.loading {
         height: 200px;
         background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -700,7 +721,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 6)">
+          <div class="gallery-item wide" onclick="openLightbox(this, 6)">
             <img src="./assets/robots/text_to_robot.jpg" alt="Text2Robot Design Process"
                  onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
@@ -738,6 +759,36 @@
             <div class="gallery-overlay">
               <div class="overlay-title">"Thing" Robot</div>
               <div class="overlay-description">Course project - RobotStudio2023</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" onclick="openLightbox(this, 10)">
+            <video autoplay muted loop playsinline onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/shadow_dance/shadow_robot_1.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Shadow Dance</div>
+              <div class="overlay-description">Robot learning to communicate through projected visual abstractions.</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" onclick="openLightbox(this, 11)">
+            <video autoplay muted loop playsinline onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/shadow_dance/shadow_robot_2.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Shadow Dance</div>
+              <div class="overlay-description">Robot learning to communicate through projected visual abstractions.</div>
+            </div>
+          </div>
+
+          <div class="gallery-item wide dark zoom" onclick="openLightbox(this, 12)">
+            <video autoplay muted loop playsinline onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
+              <source src="./assets/shadow_dance/shadow_robot_3.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-overlay">
+              <div class="overlay-title">Shadow Dance</div>
+              <div class="overlay-description">Robot learning to communicate through projected visual abstractions.</div>
             </div>
           </div>
         </div>
@@ -1093,6 +1144,12 @@
 
       // Enhanced lightbox functionality with navigation and zoom
       function openLightbox(element, index) {
+        // Derive the index from the live DOM order so it stays correct even
+        // after the gallery has been reordered (e.g. sorted by modified time).
+        if (galleryItems.length) {
+          const found = galleryItems.indexOf(element);
+          if (found !== -1) index = found;
+        }
         const lightbox = document.getElementById('lightbox');
         const lightboxMedia = document.getElementById('lightbox-media');
         const lightboxTitle = document.getElementById('lightbox-title');
@@ -1332,8 +1389,53 @@
         };
       }
 
+      // Read each asset's Last-Modified header and reorder the gallery so the
+      // most recently updated footage appears first. On GitHub Pages the
+      // Last-Modified header reflects when the file was last deployed/uploaded,
+      // so this effectively orders by upload time. Falls back to the original
+      // DOM order if no timestamps are available (e.g. opened via file://).
+      async function sortGalleryByModifiedTime() {
+        const gallery = document.querySelector('.gallery');
+        if (!gallery) return;
+
+        const items = Array.from(gallery.querySelectorAll('.gallery-item'));
+
+        const getSrc = (item) => {
+          const source = item.querySelector('video source');
+          if (source) return source.getAttribute('src');
+          const img = item.querySelector('img');
+          if (img) return img.getAttribute('src');
+          return null;
+        };
+
+        const withTimes = await Promise.all(items.map(async (item, orig) => {
+          let time = 0;
+          const src = getSrc(item);
+          if (src) {
+            try {
+              const res = await fetch(src, { method: 'HEAD' });
+              const lastModified = res.headers.get('Last-Modified');
+              if (lastModified) time = new Date(lastModified).getTime();
+            } catch (e) {
+              /* ignore network/CORS errors; keep time = 0 */
+            }
+          }
+          return { item, time, orig };
+        }));
+
+        // If we couldn't read a single timestamp, leave the order untouched.
+        if (withTimes.every((entry) => entry.time === 0)) return;
+
+        // Newest first; original DOM order breaks ties.
+        withTimes.sort((a, b) => (b.time - a.time) || (a.orig - b.orig));
+        withTimes.forEach(({ item }) => gallery.appendChild(item));
+      }
+
       // Initialize and handle window events
-      window.addEventListener('load', () => {
+      window.addEventListener('load', async () => {
+        // Reorder by modified/upload time before laying out.
+        await sortGalleryByModifiedTime();
+
         // Initialize masonry layout
         initMasonryLayout();
         

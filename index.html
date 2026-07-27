@@ -567,12 +567,81 @@
         overflow: hidden;
       }
 
-      .r_section__pic-container .video-canvas video {
+      .r_section__pic-container .video-canvas video,
+      .r_section__pic-container .video-canvas img {
         max-width: 100%;
         max-height: 100%;
         width: auto;
         height: auto;
         display: block;
+      }
+
+      /* Full-bleed variant: media covers the whole canvas with no white letterboxing */
+      .r_section__pic-container .video-canvas.cover {
+        background: transparent;
+      }
+
+      /* Teaser that links out to a video: shows a play badge on hover */
+      .r_section__pic-container a.video-canvas {
+        position: relative;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .r_section__pic-container a.video-canvas::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.25);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1;
+      }
+
+      .r_section__pic-container a.video-canvas:hover::before {
+        opacity: 1;
+      }
+
+      .play-badge {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 2;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      /* Triangular play glyph */
+      .play-badge::after {
+        content: '';
+        border-style: solid;
+        border-width: 12px 0 12px 20px;
+        border-color: transparent transparent transparent #ffffff;
+        margin-left: 5px;
+      }
+
+      .r_section__pic-container a.video-canvas:hover .play-badge {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .r_section__pic-container .video-canvas.cover video,
+      .r_section__pic-container .video-canvas.cover img {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        object-fit: cover;
+        transform: scale(1.3);
       }
 
       .r_section__text {
@@ -882,12 +951,33 @@
     <!-- Research Sections -->
     <section class="research-section reveal">
       <div class="r_section__pic-container">
-        <div class="video-canvas">
+        <a href="https://www.youtube.com/watch?v=m81_7rgGdxM" target="_blank" rel="noopener" class="video-canvas cover" aria-label="Watch the Shadow Dance video">
+          <video autoplay loop muted playsinline>
+            <source src="./assets/shadow_dance/shadow_teaser.mp4" type="video/mp4" />
+          </video>
+          <span class="play-badge" aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="r_section__text">
+        <p class="r_section__text__p4">Robot Learning to Communicate through Projected Visual Abstractions</p>
+        <p class="r_section__text__p5">Danyang Yan*, Boyuan Wang*, <strong>Jiaxun Liu</strong>*, Boyuan Chen</p>
+        <p>
+          <a href="https://generalroboticslab.com/shadow" class="r_section__text__link">Website</a> /
+          <a href="https://arxiv.org/abs/2607.22434" class="r_section__text__link">Paper</a> /
+          <a href="https://www.youtube.com/watch?v=m81_7rgGdxM" class="r_section__text__link">Video</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="research-section reveal">
+      <div class="r_section__pic-container">
+        <a href="https://www.youtube.com/watch?v=Nd-I4YNQEuY" target="_blank" rel="noopener" class="video-canvas" aria-label="Watch the Argus video">
           <video autoplay loop muted>
             <source src="./assets/Argus_project_teaser.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-        </div>
+          <span class="play-badge" aria-hidden="true"></span>
+        </a>
       </div>
       <div class="r_section__text">
         <p class="r_section__text__p4">Extreme Dynamic Symmetry Enables Omnidirectional and Multifunctional Robots</p>
@@ -906,12 +996,13 @@
 
     <section class="research-section reveal">
       <div class="r_section__pic-container">
-        <div class="video-canvas">
+        <a href="https://www.youtube.com/watch?v=Cwq7G6OUeGg&feature=youtu.be" target="_blank" rel="noopener" class="video-canvas" aria-label="Watch the Text2Robot video">
           <video autoplay loop muted>
             <source src="./assets/Text2Robot.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-        </div>
+          <span class="play-badge" aria-hidden="true"></span>
+        </a>
       </div>
       <div class="r_section__text">
         <p class="r_section__text__p4">Text2Robot: Evolutionary Robot Design from Text Descriptions</p>
@@ -929,12 +1020,13 @@
 
     <section class="research-section reveal">
       <div class="r_section__pic-container">
-        <div class="video-canvas">
+        <a href="https://www.youtube.com/watch?v=MvSYdLMsvx4" target="_blank" rel="noopener" class="video-canvas" aria-label="Watch the SonicSense video">
           <video autoplay loop muted>
             <source src="./assets/SonicSense.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-        </div>
+          <span class="play-badge" aria-hidden="true"></span>
+        </a>
       </div>
       <div class="r_section__text">
         <p class="r_section__text__p4">SonicSense: Object Perception from In-Hand Acoustic Vibration</p>
