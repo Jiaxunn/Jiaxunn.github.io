@@ -2,3 +2,5 @@
 
 # Large source GIFs (converted to MP4 for the web; too big for GitHub's 100 MB limit)
 assets/shadow_dance/*.gif
+# Local CV (not published)
+cv/

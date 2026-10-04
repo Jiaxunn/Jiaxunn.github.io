@@ -7,7 +7,7 @@
     <title>Jiaxun Liu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
       :root {
         --color-accent: #1a4d8f;
@@ -359,10 +359,11 @@
       .section__text {
         flex: 1;
         text-align: left;
+        font-family: 'Crimson Text', 'Songti SC', SimSun, Georgia, 'Times New Roman', serif;
       }
 
       .section__text__p1 {
-        font-size: 1.2rem;
+        font-size: 1.35rem;
         color: var(--color-text-muted);
         margin-bottom: 0.5rem;
         letter-spacing: 0.02em;
@@ -373,11 +374,11 @@
         margin-bottom: 1rem;
         color: var(--color-accent-strong);
         font-weight: 700;
-        letter-spacing: -0.02em;
+        letter-spacing: 0;
       }
 
       .section__text__p2 {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
         margin-bottom: 1rem;
         color: var(--color-text);
       }
@@ -409,27 +410,36 @@
         transform: scale(1.1);
       }
 
+      /* Text contact links, separated by middle dots (matches the CV header) */
       #socials-container {
         display: flex;
+        flex-wrap: wrap;
         justify-content: flex-start;
         align-items: center;
-        gap: 0.3rem;
+        row-gap: 0.3rem;
         margin-top: 2rem;
+        font-size: 1.25rem;
       }
 
-      #socials-container .icon {
-        width: 32px;
-        height: 32px;
-        margin: 0;
+      #socials-container a {
+        color: var(--color-accent);
+        text-decoration: none;
+        font-weight: 400;
       }
 
-      /* Email icon: native 820x512 (landscape envelope) — keep aspect ratio, scale to match row height */
-      #socials-container .icon.email {
-        width: auto;
-        height: 32px;
+      #socials-container a:hover {
+        text-decoration: underline;
       }
 
-      /* Toast that appears when the email icon is clicked */
+      #socials-container a:not(:last-child)::after {
+        content: '·';
+        display: inline-block;
+        margin: 0 0.6rem;
+        color: var(--color-text-muted);
+        text-decoration: none;
+      }
+
+      /* Toast that appears when the email address is clicked */
       #copy-toast {
         position: fixed;
         bottom: 2rem;
@@ -761,11 +771,11 @@
         }
 
         .section__text__p1 {
-          font-size: 1rem;
+          font-size: 1.15rem;
         }
 
         .section__text__p2 {
-          font-size: 1rem;
+          font-size: 1.15rem;
         }
 
         .research-section {
@@ -812,11 +822,11 @@
         }
 
         .section__text__p1 {
-          font-size: 0.9rem;
+          font-size: 1.05rem;
         }
 
         .section__text__p2 {
-          font-size: 0.9rem;
+          font-size: 1.05rem;
         }
 
         .r_section__text__p4 {
@@ -932,13 +942,13 @@
           I'm interested in robot <strong>embodiment</strong> design, exploring how a robot's morphology can <strong>sense</strong> and <strong>adapt</strong> based on task demands to enrich versatility, facilitate robot learning, and enhance task performance. I like to think outside the box and seek unconventional solutions with a full-stack mindset.
         </p>
         <p class="section__text__p2">
-          Outside research, I’m interested in design at the intersection of art, fashion, and robotics. If you’re interested in incorporating robots into product design, interactive art, or film, I’d be excited to contribute.
+          Imagine if robots take over our labor, what will we do? We enjoy the arts and investigate deeper questions! Outside research, I’m drawn to design at the intersection of art, fashion, and robotics. If you’re interested in bringing robots into product design, interactive art, or film, I’d love to collaborate.
         </p>
         <div id="socials-container">
-          <img src="./assets/google-scholar-icon_cutout.png" alt="Google scholar" class="icon" onclick="location.href='https://scholar.google.com/citations?user=T7Eoo6cAAAAJ&hl=en'" />
-          <img src="./assets/github.png" alt="GitHub profile" class="icon" onclick="location.href='https://github.com/Jiaxunn'" />
-          <img src="./assets/linkedin.png" alt="LinkedIn profile" class="icon" onclick="location.href='https://www.linkedin.com/in/jiaxun-liu-5b26b6242/'" />
-          <img src="./assets/email_symbol_cutout.png" alt="Email" title="Copy email address" class="icon email" onclick="copyEmail()" />
+          <a href="#" title="Copy email address" onclick="copyEmail(); return false;">Contact</a>
+          <a href="https://scholar.google.com/citations?user=T7Eoo6cAAAAJ&hl=en">Google Scholar</a>
+          <a href="https://github.com/Jiaxunn">GitHub</a>
+          <a href="https://www.linkedin.com/in/jiaxun-liu-5b26b6242/">LinkedIn</a>
         </div>
       </div>
     </section>
