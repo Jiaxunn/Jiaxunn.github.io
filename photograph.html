@@ -643,6 +643,26 @@
       <div class="gallery-container">
         <div class="gallery">
           <div class="gallery-item" onclick="openLightbox(this, 0)">
+            <img src="./assets/photograph/ap_news.jpeg" alt="AP News"
+                 onload="handleImageLoad(this)"
+                 onerror="handleImageError(this)"
+                 onloadstart="handleImageLoadStart(this)" />
+            <div class="gallery-overlay">
+              <div class="overlay-title"><a href="https://apnews.com/article/robot-duke-argus-6ba9651ba6553ebc4405ffc07a26afed" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color: inherit;">AP News</a></div>
+            </div>
+          </div>
+
+          <div class="gallery-item" onclick="openLightbox(this, 1)">
+            <img src="./assets/photograph/ap_news_2.jpeg" alt="AP News"
+                 onload="handleImageLoad(this)"
+                 onerror="handleImageError(this)"
+                 onloadstart="handleImageLoadStart(this)" />
+            <div class="gallery-overlay">
+              <div class="overlay-title"><a href="https://apnews.com/article/robot-duke-argus-6ba9651ba6553ebc4405ffc07a26afed" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color: inherit;">AP News</a></div>
+            </div>
+          </div>
+
+          <div class="gallery-item" onclick="openLightbox(this, 2)">
             <video autoplay muted loop playsinline onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/photograph/11282025.mov" type="video/mp4" />
             </video>
@@ -651,7 +671,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 1)">
+          <div class="gallery-item" onclick="openLightbox(this, 3)">
             <img src="./assets/photograph/05122025.jpg" alt="May 12, 2025"
                  onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
@@ -661,7 +681,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 2)">
+          <div class="gallery-item" onclick="openLightbox(this, 4)">
             <img src="./assets/photograph/12222023.jpg" alt="Dec 22, 2023"
                  onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
@@ -671,7 +691,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 3)">
+          <div class="gallery-item" onclick="openLightbox(this, 5)">
             <img src="./assets/photograph/05252023.jpg" alt="May 25, 2023"
                  onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
@@ -681,7 +701,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 4)">
+          <div class="gallery-item" onclick="openLightbox(this, 6)">
             <img src="./assets/photograph/12102022.png" alt="Dec 10, 2022"
                  onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
@@ -691,7 +711,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 5)">
+          <div class="gallery-item" onclick="openLightbox(this, 7)">
             <img src="./assets/photograph/12102022-2.png" alt="Dec 10, 2022"
                  onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
@@ -1074,6 +1094,11 @@
         const description = overlay ? overlay.querySelector('.overlay-description')?.textContent || '' : '';
         
         lightboxTitle.textContent = title;
+        const titleLink = overlay ? overlay.querySelector('.overlay-title a') : null;
+        if (titleLink) {
+          lightboxTitle.innerHTML = '';
+          lightboxTitle.appendChild(titleLink.cloneNode(true));
+        }
         lightboxDescription.textContent = description;
         
         // Create media element for lightbox
