@@ -814,14 +814,9 @@
             optimalColumns = Math.min(optimalColumns, 1);
           } else if (viewportWidth < 768) {
             optimalColumns = Math.min(optimalColumns, 2);
-          } else if (viewportWidth < 1024) {
-            optimalColumns = Math.min(optimalColumns, 3);
-          } else if (viewportWidth < 1400) {
-            optimalColumns = Math.min(optimalColumns, 4);
-          } else if (viewportWidth < 1800) {
-            optimalColumns = Math.min(optimalColumns, 5);
           } else {
-            optimalColumns = Math.min(optimalColumns, 6);
+            // Default to 3 columns on desktop
+            optimalColumns = Math.min(optimalColumns, 3);
           }
           
           // Ensure at least 1 column
@@ -957,8 +952,8 @@
         if (gallery) {
           masonryLayout = new MasonryLayout(gallery, {
             gap: 20,
-            minItemWidth: 500,
-            maxItemWidth: 800
+            minItemWidth: 300,
+            maxItemWidth: 450
           });
           
           // Update gallery items array
