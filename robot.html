@@ -665,6 +665,16 @@
         <div class="gallery">
           <!-- Gallery items with enhanced structure and error handling -->
           <div class="gallery-item" onclick="openLightbox(this, 0)">
+            <img src="./assets/robots/Argus/still_image.png" alt="Argus"
+                 onload="handleImageLoad(this)"
+                 onerror="handleImageError(this)"
+                 onloadstart="handleImageLoadStart(this)" />
+            <div class="gallery-overlay">
+              <div class="overlay-title">Argus</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" onclick="openLightbox(this, 1)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/Argus/dynamic_symmetry.mp4" type="video/mp4" />
             </video>
@@ -674,7 +684,7 @@
             </div>
           </div>
 
-          <div class="gallery-item wide" onclick="openLightbox(this, 1)">
+          <div class="gallery-item wide" onclick="openLightbox(this, 2)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/Argus/object_tracking.mp4" type="video/mp4" />
             </video>
@@ -684,7 +694,7 @@
             </div>
           </div>
 
-          <div class="gallery-item wide" onclick="openLightbox(this, 2)">
+          <div class="gallery-item wide" onclick="openLightbox(this, 3)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/Argus/object_pushing.mp4" type="video/mp4" />
             </video>
@@ -694,7 +704,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 3)">
+          <div class="gallery-item" onclick="openLightbox(this, 4)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/Argus/breath.MP4" type="video/mp4" />
             </video>
@@ -703,7 +713,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 4)">
+          <div class="gallery-item" onclick="openLightbox(this, 5)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/Argus/flat_plane.mp4" type="video/mp4" />
             </video>
@@ -712,7 +722,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 5)">
+          <div class="gallery-item" onclick="openLightbox(this, 6)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/Text2Robot_ICRA.mov" type="video/mp4" />
             </video>
@@ -721,7 +731,7 @@
             </div>
           </div>
 
-          <div class="gallery-item wide" onclick="openLightbox(this, 6)">
+          <div class="gallery-item wide" onclick="openLightbox(this, 7)">
             <img src="./assets/robots/text_to_robot.jpg" alt="Text2Robot Design Process"
                  onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
@@ -732,7 +742,7 @@
             </div>
           </div>
 
-          <div class="gallery-item wide" onclick="openLightbox(this, 7)">
+          <div class="gallery-item wide" onclick="openLightbox(this, 8)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/sonic_sense.mp4" type="video/mp4" />
             </video>
@@ -742,7 +752,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 8)">
+          <div class="gallery-item" onclick="openLightbox(this, 9)">
             <video autoplay muted loop onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/robots/IMG_5505.mp4" type="video/mp4" />
             </video>
@@ -751,7 +761,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 9)">
+          <div class="gallery-item" onclick="openLightbox(this, 10)">
             <img src="./assets/robots/IMG_5493.jpg" alt="Robot Hardware"
                  onload="handleImageLoad(this)"
                  onerror="handleImageError(this)"
@@ -762,7 +772,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 10)">
+          <div class="gallery-item" onclick="openLightbox(this, 11)">
             <video autoplay muted loop playsinline onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/shadow_dance/shadow_robot_1.mp4" type="video/mp4" />
             </video>
@@ -772,7 +782,7 @@
             </div>
           </div>
 
-          <div class="gallery-item" onclick="openLightbox(this, 11)">
+          <div class="gallery-item" onclick="openLightbox(this, 12)">
             <video autoplay muted loop playsinline onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/shadow_dance/shadow_robot_2.mp4" type="video/mp4" />
             </video>
@@ -782,7 +792,7 @@
             </div>
           </div>
 
-          <div class="gallery-item wide dark zoom" onclick="openLightbox(this, 12)">
+          <div class="gallery-item wide dark zoom" onclick="openLightbox(this, 13)">
             <video autoplay muted loop playsinline onloadstart="handleMediaLoad(this)" onerror="handleMediaError(this)" onloadedmetadata="adjustItemRatio(this)">
               <source src="./assets/shadow_dance/shadow_robot_3.mp4" type="video/mp4" />
             </video>
